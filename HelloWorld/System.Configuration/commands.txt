@@ -1,0 +1,38 @@
+dotnet new console
+
+dotnet publish -c Release -o /opt/HelloWorld
+sudo systemctl daemon-reload 
+sudo systemctl start HelloWorld 
+sudo systemctl status HelloWorld
+sudo journalctl -u HelloWorld -f
+
+Service will restart in case of crash. 
+But when OS reboots, the application will not 
+automatically start. 
+To enable automatic startup of the service on boot, 
+run following command:
+sudo systemctl enable HelloWorld
+
+
+dotnet new worker 
+
+
+####################################
+Microsoft recently added a package to better integrate with 
+systemd. The .NET core application will notify systemd when it's 
+ready and when it's stopping. Additionally, systemd will now 
+understand the different log levels when .NET Core application logs to 
+output. 
+Using the dotnet CLI, add the 
+Microsoft.Extensions.Hosting.Systemd (nuget) package 
+
+dotnet add package Microsoft.Extensions.Hosting.Systemd --version 3.1.1
+
+sudo journalctl -u Worker -f -p 4
+
+
+The 'UseSystemd' function will not do anything when run 
+outside of a systemd service. The implementation checks if the 
+OS is a Unix system and whether the parent process is systemd. 
+If not, the systemd integration is skipped. 
+

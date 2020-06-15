@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "worker_svc": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
