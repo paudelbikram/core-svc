@@ -1,0 +1,28 @@
+﻿
+Program.cs 
+The host is responsible for application startup 
+and lifetime management. CreateDefaultBuilder creates this 
+runtime host to run the application. CreateDefaultBuilder does a 
+few things; configuring Kestrel server, set the root 
+directory, load app configuration( appsettings.json, appsettings.[Environment].json), 
+and configure logging. 
+
+Worker.cs
+This is the background worker which does the actual job. 
+
+Run as Windows Service:
+In order to run as a Windows Service we need our worker to 
+listen for the start and stop signals from ServiceBase, the .NET type 
+that exposes the Windows Service systems to .NET applications. 
+To do this we want to add the Microsoft.Extensions.Hosting.WindowsServices NuGet package.
+
+# ADD UseWindowsService() call to the host builder 
+
+
+Run as Linux Daemon
+Add Microsoft.Extensions.Hosting.Systemd NuGet 
+package (please note that you need .NET Core SDK 
+Preview7+ for this).
+
+#Add UseSystemd() call to host builder.
+
